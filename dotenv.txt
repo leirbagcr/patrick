@@ -1,0 +1,13 @@
+Criar arquivo .env:
+API_PORT=3000
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_USER=root
+DB_PASSWORD=#corrigir a senha de acordo com o banco de dados
+DB_DATABASE=teste3dsc
+JWT_SECRET=senha_muit0_forte_2h13u12h3i1uuhia
+
+# Pasta das imagens dos produtos (não versionar as imagens no GitHub).
+# Pode ser uma pasta sincronizada com o Google Drive, por exemplo:
+# IMG_DIR=/home/aluno/Google Drive/imagens-produtos
+IMG_DIR=./img

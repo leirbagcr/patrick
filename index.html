@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="style.css" rel="stylesheet">
+    <title>Login</title>
+  
+</head>
+<body>
+    <header>
+        <!-- <img src="logo.png" alt="Logo do e-commerce Augusto Multimarcas"> -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid justify-content-center">
+                <a class="navbar-brand" href="#">
+                    <img src="logo.png" height="100" alt="">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse flex-grow-0 justify-content-center" id="navbarNav">
+                    <ul class="navbar-nav text-center">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">PRODUTOS</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="carrinho.html">CARRINHO</span></a>
+                        </li>
+                        <li class="nav-item active" id="nav-login">
+                            <a class="nav-link" href="login.html">LOGIN</a>
+                        </li>
+                    </ul>
+                    <div class="dropdown m-3">
+                        <button id="user-info" class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="display: none">
+                            Opções
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="cadastro.html">Perfil</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" onclick="logout()">Sair</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main class="d-flex flex-column align-items-center" style="justify-content: flex-start; min-height: 100vh; padding-top: 20px; width: 100%;">
+         <div id="busca-produtos" style="width: 100%; display: flex; justify-content: center; margin-bottom: 20px;">
+            <form style="display: flex; flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: center; gap: 15px; white-space: nowrap; background-color: #ffffff; width: 100%; max-width: 1200px; padding: 15px 25px; border-radius: 8px; box-sizing: border-box;">
+                
+                <label for="input-busca" style="margin: 0; line-height: 1;">Buscar:</label>
+                <input type="text" id="input-busca" class="input_texto" style="width: 240px; height: 38px; padding: 6px 12px; margin: 0; box-sizing: border-box; vertical-align: middle;">
+                
+                <label for="select-categoria" style="margin: 0; line-height: 1;">Categoria:</label>
+                <select id="select-categoria" name="categoria" style="width: 150px; height: 38px; padding: 6px 12px; margin: 0; box-sizing: border-box; vertical-align: middle;">
+                    <option value="">Todas</option>
+                    <option value="Performance">Performance</option>
+                    <option value="Exaustão">Exaustão</option>
+                    <option value="Estética">Estética</option>
+                    <option value="Rodas">Rodas</option>
+                    <option value="Suspensão">Suspensão</option>
+                    <option value="Transmissão">Transmissão</option>
+                </select>
+
+                <label for="input-preco-min" style="margin: 0; line-height: 1;">Preço mín.:</label>
+                <input type="number" id="input-preco-min" class="input_texto" min="0" step="0.01" placeholder="R$ 0,00" style="width: 110px; height: 38px; padding: 6px 12px; margin: 0; box-sizing: border-box; vertical-align: middle;">
+
+                <label for="input-preco-max" style="margin: 0; line-height: 1;">Preço máx.:</label>
+                <input type="number" id="input-preco-max" class="input_texto" min="0" step="0.01" placeholder="R$ 0,00" style="width: 110px; height: 38px; padding: 6px 12px; margin: 0; box-sizing: border-box; vertical-align: middle;">
+                
+                <label for="select-ordem" style="margin: 0; line-height: 1;">Ordenar por:</label>
+                <select id="select-ordem" name="ordem" style="width: 150px; height: 38px; padding: 6px 12px; margin: 0; box-sizing: border-box; vertical-align: middle;">
+                    <option value="">Sem ordenação</option>
+                    <option value="menor preco">Menor preço</option>
+                    <option value="maior preco">Maior preço</option>
+                </select>
+                
+                <input type="button" value="Buscar" onclick="carregar_produtos(true)" class="btn_enviar" style="width: auto; height: 38px; padding: 0 20px; margin: 0; cursor: pointer; box-sizing: border-box; vertical-align: middle;">
+                
+            </form>
+        </div>
+
+        <div id="produtos" style="width: 100%;"></div>
+
+        <div id="paginacao"></div>
+    </main>
+    <!-- ALERTA TOAST -->
+    <div class="position-fixed" style="top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1050;">
+        <div id="liveToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="5000">
+            <div class="d-flex">
+                <div class="toast-body" id="toast-message">
+                    Mensagem
+                </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Fechar"></button>
+        </div>
+    </div>
+    <!-- FIM ALERTA TOAST -->
+    <footer> </footer>
+
+    <script src="./pages.js"></script>
+    <script src="./api.js"></script>
+    <script src="./index.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+</body>
+</html>
